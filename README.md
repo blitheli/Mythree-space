@@ -74,6 +74,32 @@ npm run build
 - `/LightingTimes` — 光照时间计算
 - `/Access` — 可见性分析
 
+## 🌐 Vercel 自动部署
+
+每次推送到 `main` 分支，项目会自动部署到 Vercel。
+
+### 方式一：Vercel 网站连接（推荐，最简单）
+
+1. 打开 [vercel.com](https://vercel.com) → 登录/注册
+2. 点击 **"Add New Project"**
+3. 选择 **Import Git Repository** → 找到 `blitheli/Mythree-space`
+4. 框架选择 **Vite**，其他保持默认
+5. 点击 **Deploy** — 完成！
+
+之后每次 `git push`，Vercel 自动构建部署，PR 会生成预览链接。
+
+### 方式二：GitHub Actions 自动部署
+
+需要在仓库 Settings → Secrets 中添加 3 个密钥：
+
+| Secret | 来源 |
+|--------|------|
+| `VERCEL_TOKEN` | [vercel.com/account/tokens](https://vercel.com/account/tokens) 创建 |
+| `VERCEL_ORG_ID` | `vercel link` 后查看 `.vercel/project.json` |
+| `VERCEL_PROJECT_ID` | 同上 |
+
+已配好 `.github/workflows/deploy.yml`，添加密钥后自动生效。
+
 ## 📝 License
 
 MIT
