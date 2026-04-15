@@ -3,7 +3,6 @@ import { GROUND_STATIONS } from '../../data/celestial-objects';
 import { latLonToVec3 } from '../../utils/orbit';
 import { useAppStore } from '../../stores/useAppStore';
 import { getGMST } from '../../utils/coordinates';
-import * as THREE from 'three';
 import { useMemo } from 'react';
 
 /**
