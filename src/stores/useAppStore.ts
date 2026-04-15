@@ -1,10 +1,17 @@
 import { create } from 'zustand';
+import * as THREE from 'three';
+
+export type CameraView = 'global' | 'iss';
 
 interface AppState {
   // 时间控制
   currentTime: Date;
   timeScale: number; // 1 = 实时, 60 = 1分钟/秒, 3600 = 1小时/秒
   isPlaying: boolean;
+
+  // 相机视角
+  cameraView: CameraView;
+  issPosition: THREE.Vector3; // ISS 当前世界坐标（供相机跟随）
 
   // UI 状态
   selectedObject: string | null;
@@ -22,6 +29,8 @@ interface AppState {
   toggleLabels: () => void;
   toggleGroundStations: () => void;
   toggleAtmosphere: () => void;
+  setCameraView: (view: CameraView) => void;
+  setIssPosition: (pos: THREE.Vector3) => void;
   tick: (deltaSeconds: number) => void;
 }
 
@@ -29,6 +38,9 @@ export const useAppStore = create<AppState>((set, get) => ({
   currentTime: new Date(),
   timeScale: 1,
   isPlaying: true,
+
+  cameraView: 'global',
+  issPosition: new THREE.Vector3(0, 0, 2),
 
   selectedObject: null,
   showOrbits: true,
@@ -44,6 +56,8 @@ export const useAppStore = create<AppState>((set, get) => ({
   toggleLabels: () => set((s) => ({ showLabels: !s.showLabels })),
   toggleGroundStations: () => set((s) => ({ showGroundStations: !s.showGroundStations })),
   toggleAtmosphere: () => set((s) => ({ showAtmosphere: !s.showAtmosphere })),
+  setCameraView: (view) => set({ cameraView: view }),
+  setIssPosition: (pos) => set({ issPosition: pos }),
 
   tick: (deltaSeconds) => {
     const state = get();

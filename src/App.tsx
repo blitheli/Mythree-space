@@ -10,10 +10,15 @@ export default function App() {
       {/* 3D 画布 */}
       <Canvas
         camera={{ position: [0, 1.5, 4], fov: 50, near: 0.01, far: 1000 }}
+        shadows
         gl={{
           antialias: true,
           alpha: false,
           powerPreference: 'high-performance',
+        }}
+        onCreated={({ gl }) => {
+          gl.shadowMap.enabled = true;
+          gl.shadowMap.type = 2; // PCFSoftShadowMap
         }}
         style={{ background: '#000011' }}
       >

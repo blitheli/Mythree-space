@@ -22,17 +22,27 @@ export function Scene() {
 
   return (
     <>
-      {/* 光照 */}
-      <ambientLight intensity={0.08} color="#4466aa" />
+      {/* 光照 — 太阳光 */}
+      <ambientLight intensity={0.06} color="#334466" />
       <directionalLight
         position={sunPosition}
-        intensity={2.0}
+        intensity={2.5}
         color="#fff5e6"
         castShadow
+        shadow-mapSize-width={2048}
+        shadow-mapSize-height={2048}
+        shadow-camera-far={100}
+        shadow-camera-near={0.1}
+        shadow-camera-left={-5}
+        shadow-camera-right={5}
+        shadow-camera-top={5}
+        shadow-camera-bottom={-5}
+        shadow-bias={-0.0001}
       />
+
       {/* 太阳辉光指示 */}
       <mesh position={sunPosition}>
-        <sphereGeometry args={[0.5, 16, 16]} />
+        <sphereGeometry args={[0.3, 16, 16]} />
         <meshBasicMaterial color="#ffdd44" />
       </mesh>
 
@@ -46,7 +56,7 @@ export function Scene() {
       <Stars count={6000} />
 
       {/* 相机控制 */}
-      <CameraControls autoRotate={false} />
+      <CameraControls />
     </>
   );
 }
